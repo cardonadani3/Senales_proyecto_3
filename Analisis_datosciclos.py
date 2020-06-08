@@ -10,12 +10,12 @@ import pandas as pd #Manejo de los dataframes de datos
 import matplotlib.pyplot as plt #Graficacion
 import seaborn as sns #Graficacion
 import numpy as np #Manipulacion de matrices
+from scipy import stats
 import statsmodels.api as sm
 
 datos = pd.read_csv('datosciclos3.csv');
 estadist = datos.describe()
-datos_mean= datos[['Varianza','Rango','SMA Fine','SMA Coarse','Media del espectro','Estado']]
-datos_mean.groupby(['Estado']).mean
+
 
 sano = datos.loc[:,'Estado']==0
 datos_sano = datos.loc[sano]
@@ -71,122 +71,12 @@ fig.tight_layout()
 fig.suptitle('Quantile-Quantile Plot para cada índice de los sujetos con crepitancias',fontsize=14,y =1.05)
 plt.gcf()
 plt.savefig('qqplot_crepitancia.png')
-#%%
-plt.figure(1)
-sm.graphics.qqplot(datos_crepitancia['Varianza'], line = 's')
-plt.text(left, top, 'Varianza', verticalalignment='top')
-txt.set_bbox(dict(facecolor='k', alpha=0.1,))
-plt.title('QQ plot varianza (Crepitantes)')
-plt.savefig('qqplot_crepitancia_varianza.png')
 
-
-plt.figure(2)
-sm.graphics.qqplot(datos_crepitancia['Rango'], line='s')
-plt.text(left, top, "Rango", verticalalignment='top')
-txt.set_bbox(dict(facecolor='k', alpha=0.1))
-plt.title('QQ plot rango (Crepitantes)')
-plt.savefig('qqplot_crepitancia_rango.png')
-
-plt.figure(3)
-sm.graphics.qqplot(datos_crepitancia['SMA Fine'], line='s')
-plt.text(left, top, "SMA fine", verticalalignment='top')
-txt.set_bbox(dict(facecolor='k', alpha=0.1))
-plt.title('QQ plot SMA fine (Crepitantes)')
-plt.savefig('qqplot_crepitancia_SMAfine.png')
-
-plt.figure(4)
-sm.graphics.qqplot(datos_crepitancia['SMA Coarse'], line='s')
-plt.text(left, top, "SMA coarse", verticalalignment='top')
-txt.set_bbox(dict(facecolor='k', alpha=0.1))
-plt.title('QQ plot SMA course (Crepitantes)')
-plt.savefig('qqplot_crepitancia_SMAcoarse.png')
-
-plt.figure(5)
-sm.graphics.qqplot(datos_crepitancia['Media del espectro'], line='s')
-plt.text(left, top, "Media del espectro",verticalalignment='top')
-txt.set_bbox(dict(facecolor='k', alpha=0.1))
-plt.title('QQ plot Media del espectro (Crepitantes)')
-plt.savefig('qqplot_crepitancia_espectro.png')
-
-plt.figure(6)
-sm.graphics.qqplot(datos_sibilancia['Varianza'], line = 's')
-plt.text(left, top, 'Varianza', verticalalignment='top')
-txt.set_bbox(dict(facecolor='k', alpha=0.1,))
-plt.title('QQ plot varianza (Sibilancias)')
-plt.savefig('qqplot_sibilancia_varianza.png')
-
-
-plt.figure(7)
-sm.graphics.qqplot(datos_sibilancia['Rango'], line='s')
-plt.text(left, top, "Rango", verticalalignment='top')
-txt.set_bbox(dict(facecolor='k', alpha=0.1))
-plt.title('QQ plot rango (Sibilancias)')
-plt.savefig('qqplot_sibilancia_rango.png')
-
-plt.figure(8)
-sm.graphics.qqplot(datos_sibilancia['SMA Fine'], line='s')
-plt.text(left, top, "SMA fine", verticalalignment='top')
-txt.set_bbox(dict(facecolor='k', alpha=0.1))
-plt.title('QQ plot SMA fine (Sibilancias)')
-plt.savefig('qqplot_sibilancia_SMAfine.png')
-
-plt.figure(9)
-sm.graphics.qqplot(datos_sibilancia['SMA Coarse'], line='s')
-plt.text(left, top, "SMA coarse", verticalalignment='top')
-txt.set_bbox(dict(facecolor='k', alpha=0.1))
-plt.title('QQ plot SMA course (Sibilancias)')
-plt.savefig('qqplot_sibilancia_SMAcoarse.png')
-
-plt.figure(10)
-sm.graphics.qqplot(datos_sibilancia['Media del espectro'], line='s')
-plt.text(left, top, "Media del espectro",verticalalignment='top')
-txt.set_bbox(dict(facecolor='k', alpha=0.1))
-plt.title('QQ plot Media del espectro (Sibilancias)')
-plt.savefig('qqplot_sibilancia_espectro.png')
-
-
-
-
-plt.figure(11)
-sm.graphics.qqplot(datos_sano['Varianza'], line = 's')
-plt.text(left, top, 'Varianza', verticalalignment='top')
-txt.set_bbox(dict(facecolor='k', alpha=0.1,))
-plt.title('QQ plot varianza (Sanos)')
-plt.savefig('qqplot_sanos_varianza.png')
-
-
-plt.figure(12)
-sm.graphics.qqplot(datos_sano['Rango'], line='s')
-plt.text(left, top, "Rango", verticalalignment='top')
-txt.set_bbox(dict(facecolor='k', alpha=0.1))
-plt.title('QQ plot rango (Sanos)')
-plt.savefig('qqplot_sanos_rango.png')
-
-plt.figure(13)
-sm.graphics.qqplot(datos_sano['SMA Fine'], line='s')
-plt.text(left, top, "SMA fine", verticalalignment='top')
-txt.set_bbox(dict(facecolor='k', alpha=0.1))
-plt.title('QQ plot SMA fine Sanos')
-plt.savefig('qqplot_sanos_SMAfine.png')
-
-plt.figure(14)
-sm.graphics.qqplot(datos_sano['SMA Coarse'], line='s')
-plt.text(left, top, "SMA coarse", verticalalignment='top')
-txt.set_bbox(dict(facecolor='k', alpha=0.1))
-plt.title('QQ plot SMA course (Sanos)')
-plt.savefig('qqplot_sanos_SMAcoarse.png')
-
-plt.figure(15)
-sm.graphics.qqplot(datos_sano['Media del espectro'], line='s')
-plt.text(left, top, "Media del espectro",verticalalignment='top')
-txt.set_bbox(dict(facecolor='k', alpha=0.1))
-plt.title('QQ plot Media del espectro (Sanos)')
-plt.savefig('qqplot_sanos_espectro.png')
 
 #%%  Analisis de distribucion de cada variable en el data Frame (qqPlot) 
 
 left = -1.8   #x coordinate for text insert
-fig = plt.figure(2,[10,8])
+fig = plt.figure(12,[10,8])
 
 ax = fig.add_subplot(3, 2, 1)
 sm.graphics.qqplot(datos_sibilancia['Varianza'], line = 's',ax=ax)
@@ -228,7 +118,7 @@ plt.savefig('qqplot_sibilancias.png')
 
 #%% Analisis de distribucion de cada variable en el data Frame (Histograma)
 
-fig = plt.figure(2, [11,12])
+fig = plt.figure(13, [11,12])
 
 plt.subplot(3,2,1);plt.hist(datos['Varianza'])
 plt.ylabel('Frecuencia');plt.xlabel('Varianza')
@@ -250,7 +140,7 @@ fig.suptitle('Histograma para cada índice del data Frame',fontsize=16)
 plt.savefig('histogram.png')
 
 #%% Analisis de caja de bigotes 
-figs = plt.figure(3,[11,11])
+figs = plt.figure(14,[11,11])
 
 plt.subplot(3,2,1); sns.boxplot(x = 'Estado', y = 'Varianza',data = datos)
 plt.subplot(3,2,2); sns.boxplot(x = 'Estado', y = 'Rango',data = datos) 
@@ -259,20 +149,22 @@ plt.subplot(3,2,4); sns.boxplot(x = 'Estado', y = 'SMA Coarse',data = datos)
 plt.subplot(3,2,5); sns.boxplot(x = 'Estado', y = 'Media del espectro',data = datos)
 
 figs.suptitle('Caja de bigotes de los indices vs los estados ',fontsize=16)
+plt.savefig('bigotes.png')
 
 #%% Correlacion de Person 
 
 
-datos.drop(['Crepitancias','Sibilancias','Normal','Sibilancias y Crepitancias'],axis='columns', inplace=True)
+#datos.drop(['Crepitancias','Sibilancias','Normal','Sibilancias y Crepitancias'],axis='columns', inplace=True)
 correlation_matrix = datos.corr()
 sns.heatmap(correlation_matrix, annot=True)
+plt.figure(15,[10,8])
 plt.title('Grafico de correlacion')
 plt.savefig('Corelacion de variables',fontsize=16, y = 1.05)
 
 
 #%% Histograma de varianza 
 
-fig = plt.figure(3,[12,5])
+fig = plt.figure(16,[12,5])
 
 ax = fig.add_subplot(1, 2, 1)
 sm.graphics.qqplot(datos_sano['Varianza'], line = 's',ax=ax)
@@ -319,20 +211,5 @@ matriz_crepitancia_sibilancia = analisis_mwhitney(datos_crepitancia,datos_sibila
 matriz_ambos = analisis_mwhitney(datos_sano,datos_ambos)
     
 
-#%% Aplicacion de Wilcoxon
-    
-from scipy.stats import wilcoxon
-
-# generate two independent samples
-
-# compare samples
-stat, p = wilcoxon(datos_sano, datos_crepitancia)
-print('Statistics=%.3f, p=%.3f' % (stat, p))
-# interpret
-alpha = 0.05
-if p > alpha:
-	print('Same distribution (fail to reject H0)')
-else:
-	print('Different distribution (reject H0)')
     
     
